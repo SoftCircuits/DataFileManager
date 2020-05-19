@@ -38,7 +38,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dataFileManager1 = new MapToGrid.Utility.DataFileManager(this.components);
+            this.dataFileManager1 = new SoftCircuits.DataFileManager.DataFileManager(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,10 +125,10 @@
             this.dataFileManager1.FileName = null;
             this.dataFileManager1.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             this.dataFileManager1.IsModified = false;
-            this.dataFileManager1.NewFile += new System.EventHandler<MapToGrid.Utility.DataFileEventArgs>(this.dataFileManager1_NewFile);
-            this.dataFileManager1.OpenFile += new System.EventHandler<MapToGrid.Utility.DataFileEventArgs>(this.dataFileManager1_OpenFile);
-            this.dataFileManager1.SaveFile += new System.EventHandler<MapToGrid.Utility.DataFileEventArgs>(this.dataFileManager1_SaveFile);
-            this.dataFileManager1.FileChanged += new System.EventHandler<MapToGrid.Utility.DataFileEventArgs>(this.dataFileManager1_FileChanged);
+            this.dataFileManager1.NewFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_NewFile);
+            this.dataFileManager1.OpenFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_OpenFile);
+            this.dataFileManager1.SaveFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_SaveFile);
+            this.dataFileManager1.FileChanged += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_FileChanged);
             // 
             // Form1
             // 
@@ -160,7 +160,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox1;
-        private MapToGrid.Utility.DataFileManager dataFileManager1;
+        private SoftCircuits.DataFileManager.DataFileManager dataFileManager1;
     }
 }
 

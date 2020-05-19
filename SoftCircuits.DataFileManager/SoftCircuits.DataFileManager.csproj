@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFileManager.cs" />
+    <Compile Include="DataFileManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataFileManager.Designer.cs">
       <DependentUpon>DataFileManager.cs</DependentUpon>
     </Compile>

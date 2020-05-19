@@ -1,21 +1,14 @@
-﻿using System;
+﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+// Licensed under the MIT license.
+//
+
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MapToGrid.Utility
+namespace SoftCircuits.DataFileManager
 {
-    public class DataFileEventArgs : EventArgs
-    {
-        public string FileName { get; set; }
-        public string FileTitle => DataFileManager.GetFileTitle(FileName);
-
-        public DataFileEventArgs(string fileName)
-        {
-            FileName = fileName;
-        }
-    }
-
     /// <summary>
     /// Component that helps manage a data file.
     /// </summary>
@@ -285,6 +278,33 @@ namespace MapToGrid.Utility
                 MessageBox.Show($"Error saving '{FileName}' : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
+        }
+    }
+
+    /// <summary>
+    /// Event args class.
+    /// </summary>
+    public class DataFileEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Returns the full path for the current file name, or <c>null</c>
+        /// if the file is unnamed.
+        /// </summary>
+        public string FileName { get; set; }
+
+        /// <summary>
+        /// Returns just the name portion of the current file name, or "Untitled"
+        /// if the file is unnamed.
+        /// </summary>
+        public string FileTitle => DataFileManager.GetFileTitle(FileName);
+
+        /// <summary>
+        /// Constructs a new <see cref="DataFileEventArgs"/> instance.
+        /// </summary>
+        /// <param name="fileName"></param>
+        public DataFileEventArgs(string fileName)
+        {
+            FileName = fileName;
         }
     }
 }

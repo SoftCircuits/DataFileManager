@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+// Licensed under the MIT license.
+//
+
+using SoftCircuits.DataFileManager;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -53,17 +58,17 @@ namespace TestApp
 
         #region File Handlers
 
-        private void dataFileManager1_NewFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
+        private void dataFileManager1_NewFile(object sender, DataFileEventArgs e)
         {
             textBox1.Text = string.Empty;
         }
 
-        private void dataFileManager1_OpenFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
+        private void dataFileManager1_OpenFile(object sender, DataFileEventArgs e)
         {
             textBox1.Text = File.ReadAllText(e.FileName);
         }
 
-        private void dataFileManager1_SaveFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
+        private void dataFileManager1_SaveFile(object sender, DataFileEventArgs e)
         {
             File.WriteAllText(e.FileName, textBox1.Text);
         }
@@ -75,7 +80,7 @@ namespace TestApp
             dataFileManager1.IsModified = true;
         }
 
-        private void dataFileManager1_FileChanged(object sender, MapToGrid.Utility.DataFileEventArgs e)
+        private void dataFileManager1_FileChanged(object sender, DataFileEventArgs e)
         {
             Text = $"{e.FileTitle} - Test App";
         }
