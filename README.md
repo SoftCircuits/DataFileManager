@@ -6,7 +6,7 @@
 
 DataFileManager is a WinForms component that helps manage an application's data files.
 
-This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save changes to the current file.
+This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save the current file.
 
 ## Using the Library
 
@@ -40,7 +40,9 @@ private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 
 #### Implement Application-Specific File Handling
 
-Next, you need to add event handlers to perform your application-specific file reading and writing. Note that you don't need to worry about File Open or File Save dialogs, and you also don't need to implement exception handling. These are all done for you by the library.
+Next, you need to add event handlers to perform your application-specific file reading and writing. The `DataFileEventArgs` class includes the `FileName` property, which is the full file name of the current file or `null` if the file has no name.
+
+Note that you don't need to worry about File Open or File Save dialogs, and you also don't need to implement exception handling. These are all done for you by the library.
 
 ```cs
 private void dataFileManager1_NewFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
@@ -70,7 +72,7 @@ private void textBox1_TextChanged(object sender, EventArgs e)
 }
 ```
 
-Now when you call the `New()` or `Open()` methods, the library will automatically prompt to save the current document if it has been modified. If the user cancels that prompt, or if there is an error saving the file, the `New()` and `Open()` methods will abort and no changes will be made to the current document.
+Now when you call the `New()` or `Open()` methods, the library will automatically prompt to save the current document if it has been modified. If the user cancels that prompt, or if there is an error saving the file, the `New()` and `Open()` methods will abort to avoid losing changes to the current document.
 
 One case you also need to handle is when the user closes your form. In this case, you can call the `PromptSaveIfModified()` method directly. This method returns `true` if the current file has not been modified, if the user chose not to save the changes, or if the changes were successfully saved. Otherwise, this method returns false. In the example below, the code cancels the form closing if `PromptSaveIfModified()` returns false.
 
@@ -86,7 +88,7 @@ private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 
 Most applications set the title bar text to something like *Current Document - AppName*. The DataFileManager library makes it easy to ensure your title bar is always current by providing the `FileChanged` event.
 
-The `DataFileEventArgs` class includes the `FileName` property, which is the full file name of the current file or `null` if the file has no name. The `FileTitle` property returns just the name portion of `FileName` or `"Unititled"` if the file has no name.
+The `DataFileEventArgs` class also includes the `FileTitle` property, which returns just the file name portion of `FileName` or `"Unititled"` if the file has no name.
 
 ```cs
 private void dataFileManager1_FileChanged(object sender, MapToGrid.Utility.DataFileEventArgs e)
