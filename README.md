@@ -6,7 +6,7 @@
 
 DataFileManager is a WinForms component that helps manage an application's data files.
 
-This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save changes to the current file.
+This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save the current file.
 
 ## Using the Library
 
