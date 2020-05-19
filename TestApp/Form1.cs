@@ -21,6 +21,11 @@ namespace TestApp
                 e.Cancel = true;
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         #region File Commands
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
