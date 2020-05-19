@@ -40,7 +40,9 @@ private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 
 #### Implement Application-Specific File Handling
 
-Next, you need to add event handlers to perform your application-specific file reading and writing. Note that you don't need to worry about File Open or File Save dialogs, and you also don't need to implement exception handling. These are all done for you by the library.
+Next, you need to add event handlers to perform your application-specific file reading and writing. The `DataFileEventArgs` class includes the `FileName` property, which is the full file name of the current file or `null` if the file has no name.
+
+Note that you don't need to worry about File Open or File Save dialogs, and you also don't need to implement exception handling. These are all done for you by the library.
 
 ```cs
 private void dataFileManager1_NewFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
@@ -86,7 +88,7 @@ private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 
 Most applications set the title bar text to something like *Current Document - AppName*. The DataFileManager library makes it easy to ensure your title bar is always current by providing the `FileChanged` event.
 
-The `DataFileEventArgs` class includes the `FileName` property, which is the full file name of the current file or `null` if the file has no name. The `FileTitle` property returns just the name portion of `FileName` or `"Unititled"` if the file has no name.
+The `DataFileEventArgs` class also includes the `FileTitle` property, which returns just the file name portion of `FileName` or `"Unititled"` if the file has no name.
 
 ```cs
 private void dataFileManager1_FileChanged(object sender, MapToGrid.Utility.DataFileEventArgs e)
