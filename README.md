@@ -70,7 +70,7 @@ private void textBox1_TextChanged(object sender, EventArgs e)
 }
 ```
 
-Now when you call the `New()` or `Open()` methods, the library will automatically prompt to save the current document if it has been modified. If the user cancels that prompt, or if there is an error saving the file, the `New()` and `Open()` methods will abort and no changes will be made to the current document.
+Now when you call the `New()` or `Open()` methods, the library will automatically prompt to save the current document if it has been modified. If the user cancels that prompt, or if there is an error saving the file, the `New()` and `Open()` methods will abort to avoid losing changes to the current document.
 
 One case you also need to handle is when the user closes your form. In this case, you can call the `PromptSaveIfModified()` method directly. This method returns `true` if the current file has not been modified, if the user chose not to save the changes, or if the changes were successfully saved. Otherwise, this method returns false. In the example below, the code cancels the form closing if `PromptSaveIfModified()` returns false.
 
