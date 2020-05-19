@@ -86,6 +86,8 @@ private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 
 Most applications set the title bar text to something like *Current Document - AppName*. The DataFileManager library makes it easy to ensure your title bar is always current by providing the `FileChanged` event.
 
+The `DataFileEventArgs` class includes the `FileName` property, which is the full file name of the current file or `null` if the file has no name. The `FileTitle` property returns just the name portion of `FileName` or `"Unititled"` if the file has no name.
+
 ```cs
 private void dataFileManager1_FileChanged(object sender, MapToGrid.Utility.DataFileEventArgs e)
 {
