@@ -23,8 +23,20 @@ namespace MapToGrid.Utility
     {
         private const string DefaultDefaultExt = "dat";
         private const string DefaultFilter = "All Files (*.*)|*.*";
+        private const string DefaultSaveFilePrompt = "File has been modified. Save changes?";
+        private const string DefaultSaveFileTitle = "Save Changes";
 
+        /// <summary>
+        /// Returns true if <paramref name="path"/> is not null or empty.
+        /// </summary>
+        /// <param name="path">File path and name to test.</param>
         public static bool IsFileName(string path) => !string.IsNullOrWhiteSpace(path);
+
+        /// <summary>
+        /// Returns just the file name of the given path, or "Untitled" if the path is
+        /// empty.
+        /// </summary>
+        /// <param name="path">File path and name to transform.</param>
         public static string GetFileTitle(string path) => IsFileName(path) ? Path.GetFileName(path) : "Untitled";
 
         // Event provides notification the current file has changed
@@ -32,6 +44,39 @@ namespace MapToGrid.Utility
         public event EventHandler<DataFileEventArgs> OpenFile;
         public event EventHandler<DataFileEventArgs> SaveFile;
         public event EventHandler<DataFileEventArgs> FileChanged;
+
+        /// <summary>
+        /// The default extension added to saved files when no
+        /// extension has been specified.
+        /// </summary>
+        [Browsable(true)]
+        [DefaultValue(DefaultDefaultExt)]
+        [Description("The default extension added to saved files when no extension has been specified.")]
+        public string DefaultExt { get; set; }
+
+        /// <summary>
+        /// File filters used in Open and Save dialog boxes.
+        /// </summary>
+        [Browsable(true)]
+        [DefaultValue(DefaultFilter)]
+        [Description("File filters used in Open and Save dialog boxes.")]
+        public string Filter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text displayed by PromptSaveIfModified() method.
+        /// </summary>
+        [Browsable(true)]
+        [DefaultValue(DefaultSaveFilePrompt)]
+        [Description("Gets or sets the text displayed by PromptSaveIfModified() method.")]
+        public string SaveFilePrompt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title displayed by PromptSaveIfModified() method.
+        /// </summary>
+        [Browsable(true)]
+        [DefaultValue(DefaultSaveFileTitle)]
+        [Description("Gets or sets the title displayed by PromptSaveIfModified() method.")]
+        public string SaveFileTitle { get; set; }
 
         /// <summary>
         /// Returns the full path of the current filename or <c>null</c> if
@@ -47,35 +92,17 @@ namespace MapToGrid.Utility
         public bool IsModified { get; set; }
 
         /// <summary>
-        /// The default extension added to saved files when no
-        /// extension has been specified.
-        /// </summary>
-        [Browsable(true)]
-        [DefaultValue(DefaultDefaultExt)]
-        [Description("Default extension when saving files.")]
-        public string DefaultExt { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Browsable(true)]
-        [DefaultValue(DefaultFilter)]
-        [Description("File filters used in Open and Save dialog boxes.")]
-        public string Filter { get; set; }
-
-        /// <summary>
-        /// Indicates if data file currently has a filename
+        /// Indicates if data file currently has a filename.
         /// </summary>
         [Browsable(false)]
         public bool HasFileName => IsFileName(FileName);
 
         /// <summary>
         /// Returns the title of the current file (filename without path) or
-        /// "Untitled" if the current file has no name
+        /// "Untitled" if the current file has no name.
         /// </summary>
         [Browsable(false)]
         public string FileTitle => GetFileTitle(FileName);
-
 
         /// <summary>
         /// Constructs a new <see cref="DataFileManager"/> instance.
@@ -96,13 +123,17 @@ namespace MapToGrid.Utility
             Initialize();
         }
 
-        //
+        /// <summary>
+        /// Common initialization.
+        /// </summary>
         protected void Initialize()
         {
             FileName = null;
             IsModified = false;
             DefaultExt = DefaultDefaultExt;
             Filter = DefaultFilter;
+            SaveFilePrompt = DefaultSaveFilePrompt;
+            SaveFileTitle = DefaultSaveFileTitle;
         }
 
         /// <summary>
@@ -180,27 +211,27 @@ namespace MapToGrid.Utility
         {
             if (IsModified)
             {
-                DialogResult result = MessageBox.Show("File has been modified. Save changes?", "Save Changes",
+                DialogResult result = MessageBox.Show(SaveFilePrompt, SaveFileTitle,
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                    return Save();
                 if (result == DialogResult.Cancel)
                     return false;
+                if (result == DialogResult.Yes)
+                    return Save();
             }
             return true;
         }
 
         /// <summary>
-        /// 
+        /// Raises the <see cref="NewFile"/> event to implement creating a new file.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
+        /// <param name="e">Event args with new file name.</param>
+        /// <returns>True if successful, false otherwise.</returns>
         protected virtual bool OnNew(DataFileEventArgs e)
         {
             try
             {
                 NewFile?.Invoke(this, e);
-                FileName = null;
+                FileName = e.FileName;
                 IsModified = false;
                 FileChanged?.Invoke(this, e);
                 return true;
@@ -213,10 +244,10 @@ namespace MapToGrid.Utility
         }
 
         /// <summary>
-        /// 
+        /// Raises the <see cref="OpenFile"/> event to implement opening a file.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
+        /// <param name="e">Event args with new file name.</param>
+        /// <returns>True if successful, false otherwise.</returns>
         protected virtual bool OnLoad(DataFileEventArgs e)
         {
             try
@@ -235,10 +266,10 @@ namespace MapToGrid.Utility
         }
 
         /// <summary>
-        /// 
+        /// Raises the <see cref="SaveFile"/> event to implement saving a file.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
+        /// <param name="e">Event args with new file name.</param>
+        /// <returns>True if successful, false otherwise.</returns>
         protected virtual bool OnSave(DataFileEventArgs e)
         {
             try

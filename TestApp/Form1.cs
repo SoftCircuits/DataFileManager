@@ -13,6 +13,7 @@ namespace TestApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dataFileManager1.New();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
