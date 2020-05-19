@@ -45,17 +45,17 @@ Next, you need to add event handlers to perform your application-specific file r
 Note that you don't need to worry about File Open or File Save dialogs, and you also don't need to implement exception handling. These are all done for you by the library.
 
 ```cs
-private void dataFileManager1_NewFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
+private void dataFileManager1_NewFile(object sender, DataFileEventArgs e)
 {
     textBox1.Text = string.Empty;
 }
 
-private void dataFileManager1_OpenFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
+private void dataFileManager1_OpenFile(object sender, DataFileEventArgs e)
 {
     textBox1.Text = File.ReadAllText(e.FileName);
 }
 
-private void dataFileManager1_SaveFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
+private void dataFileManager1_SaveFile(object sender, DataFileEventArgs e)
 {
     File.WriteAllText(e.FileName, textBox1.Text);
 }
@@ -91,7 +91,7 @@ Most applications set the title bar text to something like *Current Document - A
 The `DataFileEventArgs` class also includes the `FileTitle` property, which returns just the file name portion of `FileName` or `"Unititled"` if the file has no name.
 
 ```cs
-private void dataFileManager1_FileChanged(object sender, MapToGrid.Utility.DataFileEventArgs e)
+private void dataFileManager1_FileChanged(object sender, DataFileEventArgs e)
 {
     Text = $"{e.FileTitle} - Test App";
 }
