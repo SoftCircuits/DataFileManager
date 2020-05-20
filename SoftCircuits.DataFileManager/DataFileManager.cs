@@ -14,10 +14,14 @@ namespace SoftCircuits.DataFileManager
     /// </summary>
     public partial class DataFileManager : Component
     {
+        private const string DefaultFileName = null;
+        private const bool DefaultIsModified = false;
         private const string DefaultDefaultExt = "dat";
         private const string DefaultFilter = "All Files (*.*)|*.*";
         private const string DefaultSaveFilePrompt = "File has been modified. Save changes?";
         private const string DefaultSaveFileTitle = "Save Changes";
+
+        #region Static methods
 
         /// <summary>
         /// Returns true if <paramref name="path"/> is not null or empty.
@@ -32,15 +36,26 @@ namespace SoftCircuits.DataFileManager
         /// <param name="path">File path and name to transform.</param>
         public static string GetFileTitle(string path) => IsFileName(path) ? Path.GetFileName(path) : "Untitled";
 
-        // Event provides notification the current file has changed
+        #endregion
+
+        #region Events
+
+        [Description("Occurs when data should be cleared for a new file.")]
         public event EventHandler<DataFileEventArgs> NewFile;
+        [Description("Occurs when a new file needs to be opened.")]
         public event EventHandler<DataFileEventArgs> OpenFile;
+        [Description("Occurs when the file needs saving.")]
         public event EventHandler<DataFileEventArgs> SaveFile;
+        [Description("Occurs whenever the current file name has changed.")]
         public event EventHandler<DataFileEventArgs> FileChanged;
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// The default extension added to saved files when no
-        /// extension has been specified.
+        /// Gets or sets the default extension added to files when saving a file and
+        /// no extension has been specified.
         /// </summary>
         [Browsable(true)]
         [DefaultValue(DefaultDefaultExt)]
@@ -48,7 +63,7 @@ namespace SoftCircuits.DataFileManager
         public string DefaultExt { get; set; }
 
         /// <summary>
-        /// File filters used in Open and Save dialog boxes.
+        /// Gets or sets the file filters used in Open and Save dialog boxes.
         /// </summary>
         [Browsable(true)]
         [DefaultValue(DefaultFilter)]
@@ -72,16 +87,18 @@ namespace SoftCircuits.DataFileManager
         public string SaveFileTitle { get; set; }
 
         /// <summary>
-        /// Returns the full path of the current filename or <c>null</c> if
-        /// the current file has no name.
+        /// Gets the full path of the current filename or <c>null</c> if the current file
+        /// has no name.
         /// </summary>
         [Browsable(false)]
-        public string FileName { get; set; }
+        [DefaultValue(DefaultFileName)]
+        public string FileName { get; private set; }
 
         /// <summary>
-        /// Determines if the current file data has changed.
+        /// Gets or sets whether the current file data has changed.
         /// </summary>
         [Browsable(false)]
+        [DefaultValue(DefaultIsModified)]
         public bool IsModified { get; set; }
 
         /// <summary>
@@ -96,6 +113,10 @@ namespace SoftCircuits.DataFileManager
         /// </summary>
         [Browsable(false)]
         public string FileTitle => GetFileTitle(FileName);
+
+        #endregion
+
+        #region Construction and initialization
 
         /// <summary>
         /// Constructs a new <see cref="DataFileManager"/> instance.
@@ -121,13 +142,17 @@ namespace SoftCircuits.DataFileManager
         /// </summary>
         protected void Initialize()
         {
-            FileName = null;
-            IsModified = false;
+            FileName = DefaultFileName;
+            IsModified = DefaultIsModified;
             DefaultExt = DefaultDefaultExt;
             Filter = DefaultFilter;
             SaveFilePrompt = DefaultSaveFilePrompt;
             SaveFileTitle = DefaultSaveFileTitle;
         }
+
+        #endregion
+
+        #region Public methods
 
         /// <summary>
         /// Clears the current file.
@@ -137,7 +162,7 @@ namespace SoftCircuits.DataFileManager
         {
             if (PromptSaveIfModified())
             {
-                return OnNew(new DataFileEventArgs(null));
+                return OnNew();
             }
             return false;
         }
@@ -155,19 +180,23 @@ namespace SoftCircuits.DataFileManager
                 openFileDialog1.FileName = string.Empty;
                 openFileDialog1.CheckFileExists = true;
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                    return OnLoad(new DataFileEventArgs(openFileDialog1.FileName));
+                    return OnLoad(openFileDialog1.FileName);
             }
             return false;
         }
 
         /// <summary>
-        /// Opens the specified filename. Does not prompt to save current file.
+        /// Opens the specified filename. Does not prompt to save current file. Sets
+        /// <paramref name="path"/> as the new current file name. Call this method
+        /// to override the normal component logic.
         /// </summary>
         /// <param name="path">Path of file to open.</param>
         /// <returns>True if successful, false otherwise.</returns>
         public bool Open(string path)
         {
-            return OnLoad(new DataFileEventArgs(path));
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            return OnLoad(path);
         }
 
         /// <summary>
@@ -177,7 +206,7 @@ namespace SoftCircuits.DataFileManager
         /// <returns>True if successful, false otherwise.</returns>
         public bool Save()
         {
-            return (HasFileName) ? OnSave(new DataFileEventArgs(FileName)) : SaveAs();
+            return (HasFileName) ? OnSave(FileName) : SaveAs();
         }
 
         /// <summary>
@@ -191,8 +220,22 @@ namespace SoftCircuits.DataFileManager
             saveFileDialog1.FileName = FileName;
             saveFileDialog1.OverwritePrompt = true;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                return OnSave(new DataFileEventArgs(saveFileDialog1.FileName));
+                return OnSave(saveFileDialog1.FileName);
             return false;
+        }
+
+        /// <summary>
+        /// Saves the current file with the specified name. Sets <paramref name="path"/> as
+        /// the new current file name. Call this method to override the normal component
+        /// logic.
+        /// </summary>
+        /// <param name="path">Path to save the current file.</param>
+        /// <returns>True if successful, false otherwise.</returns>
+        public bool SaveAs(string path)
+        {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            return OnSave(path);
         }
 
         /// <summary>
@@ -206,23 +249,27 @@ namespace SoftCircuits.DataFileManager
             {
                 DialogResult result = MessageBox.Show(SaveFilePrompt, SaveFileTitle,
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.Cancel)
-                    return false;
                 if (result == DialogResult.Yes)
                     return Save();
+                if (result == DialogResult.Cancel)
+                    return false;
             }
             return true;
         }
 
+        #endregion
+
+        #region Virtual methods
+
         /// <summary>
         /// Raises the <see cref="NewFile"/> event to implement creating a new file.
         /// </summary>
-        /// <param name="e">Event args with new file name.</param>
         /// <returns>True if successful, false otherwise.</returns>
-        protected virtual bool OnNew(DataFileEventArgs e)
+        protected virtual bool OnNew()
         {
             try
             {
+                DataFileEventArgs e = new DataFileEventArgs(null);
                 NewFile?.Invoke(this, e);
                 FileName = e.FileName;
                 IsModified = false;
@@ -239,12 +286,16 @@ namespace SoftCircuits.DataFileManager
         /// <summary>
         /// Raises the <see cref="OpenFile"/> event to implement opening a file.
         /// </summary>
-        /// <param name="e">Event args with new file name.</param>
+        /// <param name="path">Full path name of file to load.</param>
         /// <returns>True if successful, false otherwise.</returns>
-        protected virtual bool OnLoad(DataFileEventArgs e)
+        protected virtual bool OnLoad(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
             try
             {
+                DataFileEventArgs e = new DataFileEventArgs(path);
                 OpenFile?.Invoke(this, e);
                 FileName = e.FileName;
                 IsModified = false;
@@ -261,12 +312,16 @@ namespace SoftCircuits.DataFileManager
         /// <summary>
         /// Raises the <see cref="SaveFile"/> event to implement saving a file.
         /// </summary>
-        /// <param name="e">Event args with new file name.</param>
+        /// <param name="path">Full path name to save to.</param>
         /// <returns>True if successful, false otherwise.</returns>
-        protected virtual bool OnSave(DataFileEventArgs e)
+        protected virtual bool OnSave(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
             try
             {
+                DataFileEventArgs e = new DataFileEventArgs(path);
                 SaveFile?.Invoke(this, e);
                 FileName = e.FileName;
                 IsModified = false;
@@ -279,6 +334,9 @@ namespace SoftCircuits.DataFileManager
                 return false;
             }
         }
+
+        #endregion
+
     }
 
     /// <summary>

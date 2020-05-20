@@ -122,7 +122,6 @@
             // dataFileManager1
             // 
             this.dataFileManager1.DefaultExt = "txt";
-            this.dataFileManager1.FileName = null;
             this.dataFileManager1.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             this.dataFileManager1.IsModified = false;
             this.dataFileManager1.NewFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_NewFile);
