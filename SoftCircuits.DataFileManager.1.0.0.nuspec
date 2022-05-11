@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SoftCircuits.DataFileManager</id>
+    <version>1.0.0.0</version>
+    <authors>Jonathan Wood</authors>
+    <owners>Jonathan Wood</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">License.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>Logo_64x64.png</icon>
+    <projectUrl>https://github.com/SoftCircuits/DataFileManager</projectUrl>
+    <description>DataFileManager is a WinForms component that helps manage an application's data files. This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save the current file.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright © 2020 SoftCircuits</copyright>
+    <tags>winforms file new open save saveas save-as manager</tags>
+    <repository type="git" url="https://github.com/SoftCircuits/DataFileManager" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Users\Jonathan\source\repos\SoftCircuits.DataFileManager\SoftCircuits.DataFileManager\bin\Release\SoftCircuits.DataFileManager.dll" target="lib\SoftCircuits.DataFileManager.dll" />
+    <file src="D:\Users\Jonathan\source\repos\SoftCircuits.DataFileManager\License.txt" target="License.txt" />
+    <file src="D:\Users\Jonathan\source\repos\SoftCircuits.DataFileManager\Logo_64x64.png" target="Logo_64x64.png" />
+  </files>
+</package>

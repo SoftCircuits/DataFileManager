@@ -1,11 +1,8 @@
-﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2022 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestApp

@@ -1,60 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{60E972C2-0B44-4871-B9CE-34CA5F394CB3}</ProjectGuid>
+    <TargetFrameworks>net47;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <LangVersion>9.0</LangVersion>
     <OutputType>Library</OutputType>
-    <RootNamespace>SoftCircuits.DataFileManager</RootNamespace>
-    <AssemblyName>SoftCircuits.DataFileManager</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>DataFileManager is a WinForms component that helps manage an application's data files. This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save the current file.</Description>
+    <Copyright>Copyright © 2022 Jonathan Wood</Copyright>
+    <PackageProjectUrl>https://github.com/SoftCircuits/DataFileManager</PackageProjectUrl>
+    <PackageIcon>Logo_64x64.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/SoftCircuits/DataFileManager</RepositoryUrl>
+    <PackageTags>winforms;file;new;open;save;save-as;saveas;manager</PackageTags>
+    <PackageReleaseNotes>Now targeting .NET 5.0 and .NET 6.0.</PackageReleaseNotes>
+    <Version>1.0.1</Version>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <None Include="..\Logo_64x64.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="D:\Users\jwood\source\repos\SoftCircuits.DataFileManager\License.txt">
+     <Pack>True</Pack>
+     <PackagePath></PackagePath>
+   </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFileManager.cs">
+    <Compile Update="DataFileManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataFileManager.Designer.cs">
-      <DependentUpon>DataFileManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataFileManager.resx">
-      <DependentUpon>DataFileManager.cs</DependentUpon>
-    </EmbeddedResource>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

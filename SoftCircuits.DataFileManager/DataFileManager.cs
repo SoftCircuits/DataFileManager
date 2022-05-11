@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2022 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -269,7 +269,7 @@ namespace SoftCircuits.DataFileManager
         {
             try
             {
-                DataFileEventArgs e = new DataFileEventArgs(null);
+                DataFileEventArgs e = new(null);
                 NewFile?.Invoke(this, e);
                 FileName = e.FileName;
                 IsModified = false;
@@ -295,7 +295,7 @@ namespace SoftCircuits.DataFileManager
 
             try
             {
-                DataFileEventArgs e = new DataFileEventArgs(path);
+                DataFileEventArgs e = new(path);
                 OpenFile?.Invoke(this, e);
                 FileName = e.FileName;
                 IsModified = false;
@@ -321,7 +321,7 @@ namespace SoftCircuits.DataFileManager
 
             try
             {
-                DataFileEventArgs e = new DataFileEventArgs(path);
+                DataFileEventArgs e = new(path);
                 SaveFile?.Invoke(this, e);
                 FileName = e.FileName;
                 IsModified = false;
