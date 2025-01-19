@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2025 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -40,12 +40,27 @@ namespace SoftCircuits.DataFileManager
 
         #region Events
 
+        /// <summary>
+        /// Occurs when data should be cleared for a new file.
+        /// </summary>
         [Description("Occurs when data should be cleared for a new file.")]
         public event EventHandler<DataFileEventArgs> NewFile;
+
+        /// <summary>
+        /// Occurs when a new file needs to be opened.
+        /// </summary>
         [Description("Occurs when a new file needs to be opened.")]
         public event EventHandler<DataFileEventArgs> OpenFile;
+
+        /// <summary>
+        /// Occurs when the file needs saving.
+        /// </summary>
         [Description("Occurs when the file needs saving.")]
         public event EventHandler<DataFileEventArgs> SaveFile;
+
+        /// <summary>
+        /// Occurs whenever the current file name has changed.
+        /// </summary>
         [Description("Occurs whenever the current file name has changed.")]
         public event EventHandler<DataFileEventArgs> FileChanged;
 
@@ -194,8 +209,12 @@ namespace SoftCircuits.DataFileManager
         /// <returns>True if successful, false otherwise.</returns>
         public bool Open(string path)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(path);
+#else
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
+#endif
             return OnLoad(path);
         }
 
@@ -233,8 +252,12 @@ namespace SoftCircuits.DataFileManager
         /// <returns>True if successful, false otherwise.</returns>
         public bool SaveAs(string path)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(path);
+#else
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
+#endif
             return OnSave(path);
         }
 
@@ -257,7 +280,7 @@ namespace SoftCircuits.DataFileManager
             return true;
         }
 
-        #endregion
+#endregion
 
         #region Virtual methods
 
@@ -290,8 +313,12 @@ namespace SoftCircuits.DataFileManager
         /// <returns>True if successful, false otherwise.</returns>
         protected virtual bool OnLoad(string path)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(path);
+#else
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
+#endif
 
             try
             {
@@ -316,8 +343,12 @@ namespace SoftCircuits.DataFileManager
         /// <returns>True if successful, false otherwise.</returns>
         protected virtual bool OnSave(string path)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(path);
+#else
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
+#endif
 
             try
             {
@@ -335,34 +366,29 @@ namespace SoftCircuits.DataFileManager
             }
         }
 
-        #endregion
+#endregion
 
     }
 
     /// <summary>
     /// Event args class.
     /// </summary>
-    public class DataFileEventArgs : EventArgs
+    /// <remarks>
+    /// Constructs a new <see cref="DataFileEventArgs"/> instance.
+    /// </remarks>
+    /// <param name="fileName"></param>
+    public class DataFileEventArgs(string fileName) : EventArgs
     {
         /// <summary>
         /// Returns the full path for the current file name, or <c>null</c>
         /// if the file is unnamed.
         /// </summary>
-        public string FileName { get; set; }
+        public string FileName { get; set; } = fileName;
 
         /// <summary>
         /// Returns just the name portion of the current file name, or "Untitled"
         /// if the file is unnamed.
         /// </summary>
         public string FileTitle => DataFileManager.GetFileTitle(FileName);
-
-        /// <summary>
-        /// Constructs a new <see cref="DataFileEventArgs"/> instance.
-        /// </summary>
-        /// <param name="fileName"></param>
-        public DataFileEventArgs(string fileName)
-        {
-            FileName = fileName;
-        }
     }
 }

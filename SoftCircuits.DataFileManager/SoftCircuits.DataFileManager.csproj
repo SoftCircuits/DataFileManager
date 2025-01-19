@@ -1,24 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net47;net5.0-windows;net6.0-windows</TargetFrameworks>
-    <LangVersion>9.0</LangVersion>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net6.0-windows;net47</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>DataFileManager is a WinForms component that helps manage an application's data files. This component assists with tracking whether or not the current file has been saved, what the current file's name is, whether or not changes have been made, and helps ensure the user doesn't exit or load a file without having a chance to save the current file.</Description>
-    <Copyright>Copyright © 2022 Jonathan Wood</Copyright>
+    <Copyright>Copyright © 2025 Jonathan Wood</Copyright>
     <PackageProjectUrl>https://github.com/SoftCircuits/DataFileManager</PackageProjectUrl>
     <PackageIcon>Logo_64x64.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/SoftCircuits/DataFileManager</RepositoryUrl>
     <PackageTags>winforms;file;new;open;save;save-as;saveas;manager</PackageTags>
-    <PackageReleaseNotes>Now targeting .NET 5.0 and .NET 6.0.</PackageReleaseNotes>
-    <Version>1.0.1</Version>
+    <PackageReleaseNotes>Added direct support for latest .NET versions; Removed direct support for deprecated .NET 5.0; Code cleanup.</PackageReleaseNotes>
+    <Version>1.1.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\Logo_64x64.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -27,10 +32,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="D:\Users\jwood\source\repos\SoftCircuits.DataFileManager\License.txt">
-     <Pack>True</Pack>
-     <PackagePath></PackagePath>
-   </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="DataFileManager.cs">
@@ -41,5 +42,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>
