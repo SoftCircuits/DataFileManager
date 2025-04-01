@@ -15,8 +15,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/SoftCircuits/DataFileManager</RepositoryUrl>
     <PackageTags>winforms;file;new;open;save;save-as;saveas;manager</PackageTags>
-    <PackageReleaseNotes>Added direct support for latest .NET versions; Removed direct support for deprecated .NET 5.0; Code cleanup.</PackageReleaseNotes>
-    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Modified file error messages; Code cleanup.</PackageReleaseNotes>
+    <Version>1.1.1</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>

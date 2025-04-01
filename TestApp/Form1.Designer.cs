@@ -71,7 +71,7 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -79,7 +79,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "&Open...";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -87,14 +87,14 @@
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -106,7 +106,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // textBox1
             // 
@@ -117,17 +117,17 @@
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(800, 426);
             this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // dataFileManager1
             // 
             this.dataFileManager1.DefaultExt = "txt";
             this.dataFileManager1.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             this.dataFileManager1.IsModified = false;
-            this.dataFileManager1.NewFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_NewFile);
-            this.dataFileManager1.OpenFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_OpenFile);
-            this.dataFileManager1.SaveFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_SaveFile);
-            this.dataFileManager1.FileChanged += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.dataFileManager1_FileChanged);
+            this.dataFileManager1.NewFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.DataFileManager1_NewFile);
+            this.dataFileManager1.OpenFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.DataFileManager1_OpenFile);
+            this.dataFileManager1.SaveFile += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.DataFileManager1_SaveFile);
+            this.dataFileManager1.FileChanged += new System.EventHandler<SoftCircuits.DataFileManager.DataFileEventArgs>(this.DataFileManager1_FileChanged);
             // 
             // Form1
             // 

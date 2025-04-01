@@ -331,7 +331,7 @@ namespace SoftCircuits.DataFileManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading '{FileName}' : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"Error loading '{path}' : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
         }
@@ -361,7 +361,7 @@ namespace SoftCircuits.DataFileManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving '{FileName}' : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"Error saving '{path}' : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
         }

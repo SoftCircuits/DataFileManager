@@ -27,29 +27,29 @@ namespace TestApp
                 e.Cancel = true;
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
 
         #region File Commands
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataFileManager1.New();
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataFileManager1.Open();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataFileManager1.Save();
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataFileManager1.SaveAs();
         }
@@ -58,29 +58,29 @@ namespace TestApp
 
         #region File Handlers
 
-        private void dataFileManager1_NewFile(object sender, DataFileEventArgs e)
+        private void DataFileManager1_NewFile(object sender, DataFileEventArgs e)
         {
             textBox1.Text = string.Empty;
         }
 
-        private void dataFileManager1_OpenFile(object sender, DataFileEventArgs e)
+        private void DataFileManager1_OpenFile(object sender, DataFileEventArgs e)
         {
             textBox1.Text = File.ReadAllText(e.FileName);
         }
 
-        private void dataFileManager1_SaveFile(object sender, DataFileEventArgs e)
+        private void DataFileManager1_SaveFile(object sender, DataFileEventArgs e)
         {
             File.WriteAllText(e.FileName, textBox1.Text);
         }
 
         #endregion
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void TextBox1_TextChanged(object sender, EventArgs e)
         {
             dataFileManager1.IsModified = true;
         }
 
-        private void dataFileManager1_FileChanged(object sender, DataFileEventArgs e)
+        private void DataFileManager1_FileChanged(object sender, DataFileEventArgs e)
         {
             Text = $"{e.FileTitle} - Test App";
         }
